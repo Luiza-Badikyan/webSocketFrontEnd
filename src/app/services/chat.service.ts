@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ChatService {
-    private url = 'http://localhost:8888';
+    private url = environment.URL;
     private socket;
 
     constructor(private http: HttpClient) {
         this.socket = io(this.url);
     }
 
-    public sendMessage(message) {
+    public sendMessage(message, userId) {
+        const t = localStorage.getItem('token');
+        var headers_object = new HttpHeaders().set("Authorization", "Bearer " + t);
         // this.socket.emit('new-message', message);
-        return this.http.post(`${this.url}/user/1/messages/3`, {message});
+        return this.http.post(`${this.url}/chat/${userId}/messages/3`, {message});
     }
 
     public subscribeToMessages = () => {
@@ -29,10 +32,10 @@ export class ChatService {
                 console.log('getMessages work!!!');
             });
         });
-    }
+    };
 
-    // public sendMessage(message): Observable<any> {
-    //     return
-    // }
+    public getMessages() {
+        return this.http.get(`${this.url}/chat/messages/3`);
+    }
 
 }

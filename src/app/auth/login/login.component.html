@@ -1,0 +1,20 @@
+<div class="signup__container">
+    <div class="container__child signup__form">
+        <div>
+            <h3>Login</h3>
+        </div>
+        <form [formGroup]="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control" type="email" name="email" id="email" placeholder="email" formControlName="email" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" name="password" id="password" placeholder="********" formControlName="password" required />
+            </div>
+            <div class="m-t-lg">
+                <button type="button" (click)="login()" [disabled]="loginForm.invalid" class="btn btn-dark">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

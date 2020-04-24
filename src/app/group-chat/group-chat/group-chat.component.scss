@@ -667,3 +667,20 @@ body {
 #frame .content .message-input .wrap button:focus {
   outline: none;
 }
+
+
+/*---------------------*/
+
+.myMessages {
+  text-align: left;
+  border: 1px solid #565264;
+  background-color: #666570;
+}
+.otherMessages {
+  text-align: right;
+  border: 1px solid palegoldenrod;
+  background-color: antiquewhite;
+}
+#emoji {
+  z-index: 8;
+}
