@@ -1,0 +1,20 @@
+
+
+<div class="modal-header">
+    <!--<h4 class="modal-title">Modal title</h4>-->
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+        <img src="{{file.url}}" alt="">
+</div>
+<div class="modal-footer">
+    <!--<button type="button" class="btn btn-light">-->
+
+        <a href="{{file.url}}" download="{{file.fileName}}"><fa-icon [icon]="faDownload"></fa-icon></a>
+
+    <!--<button type="button" (click)="test(file)"><fa-icon [icon]="faDownload"></fa-icon></button>-->
+    <!--</button>-->
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+</div>

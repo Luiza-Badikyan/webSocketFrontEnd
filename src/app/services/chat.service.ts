@@ -3,6 +3,7 @@ import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../environments/environment";
+import { mergeMap } from "rxjs/operators";
 
 @Injectable({
     providedIn: 'root'
@@ -15,11 +16,16 @@ export class ChatService {
         this.socket = io(this.url);
     }
 
+    // public sendMessage(message, userId) {
+    //     const t = localStorage.getItem('token');
+    //     var headers_object = new HttpHeaders().set("Authorization", "Bearer " + t);
+    //     return this.http.post(`${this.url}/chat/${userId}/messages/3`, {message});
+    // }
+
     public sendMessage(message, userId) {
-        const t = localStorage.getItem('token');
-        var headers_object = new HttpHeaders().set("Authorization", "Bearer " + t);
-        // this.socket.emit('new-message', message);
-        return this.http.post(`${this.url}/chat/${userId}/messages/3`, {message});
+        // const t = localStorage.getItem('token');
+        // var headers_object = new HttpHeaders().set("Authorization", "Bearer " + t);
+        return this.http.post(`${this.url}/chat/${userId}/messages/3`, message);
     }
 
     public subscribeToMessages = () => {

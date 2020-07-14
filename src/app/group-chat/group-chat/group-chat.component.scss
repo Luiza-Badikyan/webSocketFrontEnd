@@ -18,7 +18,7 @@ body {
   min-width: 360px;
   height: 92vh;
   min-height: 300px;
-  max-height: 720px;
+  max-height: 100%;
   background: #E6EAEA;
 }
 @media screen and (max-width: 360px) {
@@ -546,6 +546,7 @@ body {
   max-height: calc(100% - 93px);
   overflow-y: scroll;
   overflow-x: hidden;
+  padding-bottom: 50px;
 }
 @media screen and (max-width: 735px) {
   #frame .content .messages {
@@ -615,8 +616,8 @@ body {
   font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
   float: left;
   border: none;
-  width: calc(100% - 90px);
-  padding: 11px 32px 10px 8px;
+  width: calc(100% - 150px);
+  padding: 11px 32px 18px 8px;
   font-size: 0.8em;
   color: #32465a;
 }
@@ -672,15 +673,77 @@ body {
 /*---------------------*/
 
 .myMessages {
-  text-align: left;
-  border: 1px solid #565264;
-  background-color: #666570;
+  width: 70% !important;
+  float: right !important;
+  padding-right: 0.5% !important;
+  border-radius: 8px 3px 3px 8px;
+  text-align: right;
+  border: 1px solid #a0b0b0;
+  background-color: #a0b0b073;
 }
 .otherMessages {
-  text-align: right;
-  border: 1px solid palegoldenrod;
-  background-color: antiquewhite;
+  text-align: left;
+  width: 70% !important;
+  float: left !important;
+  padding-left: 0.5% !important;
+  border-radius: 3px 8px 8px 3px;
+  border: 1px solid rgba(165, 165, 165, 0.55);
+  background-color: #a5a5a53b;
+}
+.myFiles {
+  width: 70% !important;
+  float: right !important;
+}
+.otherFiles {
+  width: 70% !important;
+  float: left !important;
 }
 #emoji {
-  z-index: 8;
+  z-index: 100;
+}
+#file {
+  display: none;
+}
+.messageImages {
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+  }
+}
+.fileForDownload {
+  background-color: rgba(178, 178, 178, 0.57);
+  border: 1px solid rgba(115, 115, 115, 0.7);
+  border-radius: 3px;
+  height: 5em;
+  text-align: center;
+  align-items: center;
+  fa-icon {
+    font-size: 2em;
+  }
+  a {
+    font-size: 1rem;
+    padding: 0px 3%;
+  }
+}
+.filesForSend {
+  display: inline-block;
+  div {
+    div {
+      display: block;
+      background-color: #B3D0D0;
+    }
+  }
+  img {
+    display: inline-block;
+  }
+  .removeFileIcon {
+    border: 1px solid #383838;
+    border-radius: 50%;
+    padding: 0px 5px 1px 4px;
+    position: relative;
+    top: 0 !important;
+    right: 1.5%;
+    z-index: 8;
+  }
 }

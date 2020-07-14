@@ -61,29 +61,78 @@
                 <i class="fa fa-instagram" aria-hidden="true"></i>
             </div>
         </div>
-        <div class="messages">
+        <div class="messages" *ngIf="User$">
             <ul *ngFor="let message of messages">
-                <li [ngClass]="(message.userId === User$.id)?'myMessages':'otherMessages'">
+                <!--<div>-->
+                    <!--{{message.user.first_name | toUpperCaseFirstLetter}} {{message.user.last_name | toUpperCaseFirstLetter}}-->
+                <!--</div>-->
+                <li [ngClass]="(message.userId === User$.id) ? 'myMessages' : 'otherMessages'" *ngIf="message.message">
                     {{message.message}}
                 </li>
+                <div class="d-flex w-100" *ngIf="message.attachment && message.attachment.length"
+                     [ngClass]="(message.userId === User$.id) ? 'myFiles' : 'otherFiles'">
+                    <div *ngFor="let file of message.attachment" class="messageImages">
+                        <div *ngIf="file.type === 'image/jpeg' || file.type === 'image/png'; else notImage"
+                             class="anImage">
+                            <img src="{{file.url}}" alt="" (click)="openImage(file)">
+                        </div>
+                        <ng-template #notImage>
+                            <div class="fileForDownload">
+                                <fa-icon [icon]="faFileDownload"></fa-icon>
+                                <a href="{{file.url}}" download="{{file.fileName}}">{{file.fileName}}</a>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
             </ul>
         </div>
         <div class="message-input">
             <div class="wrap">
-                <input type="text" placeholder="Write your message..." [formControl]="newMessage"
-                       (keyup)="$event.keyCode == 13 && sendMessage()" (click)="hideEmoji = false">
-                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-                <button class="ql-emoji" (click)="hideEmoji = !hideEmoji">emoji</button>
-                <button (click)="sendMessage()"><i class="fa fa-paper-plane" aria-hidden="true"></i>Send</button>
+
+                <div>
+
+                    <div *ngIf="fileToUpload.length">
+                        <div *ngFor="let file of fileToUpload, let i = index" class="filesForSend">
+                            <ng-container>
+                                <div #loaderRef>
+                                    <div *ngIf="file.type !== 'image/jpeg' && file.type !== 'image/png'">
+                                        <fa-icon [icon]="faFile"></fa-icon>
+                                        {{file.name}}
+                                    </div>
+                                </div>
+
+                            </ng-container>
+                                <img src="{{file | imagePreview : imgRef : loaderRef }}" alt="" #imgRef style="height: 80px">
+                            <span class="removeFileIcon" (click)="removeFile(i)">&times;</span>
+                        </div>
+                    </div>
+
+                    <input type="text" placeholder="Write your message..." [formControl]="newMessage"
+                           (keyup)="$event.keyCode == 13 && sendMessage()" (click)="hideEmoji = false">
+                </div>
+
+                <button (click)="fileInput.click()">
+                    <label class="m-0">
+                        <fa-icon [icon]="faFileUpload"></fa-icon>
+                    </label>
+                    <input #fileInput type="file" (change)="handleFileInput($event)" multiple style="display: none">
+                </button>
+
+                <button class="ql-emoji" (click)="hideEmoji = !hideEmoji">
+                    <fa-icon [icon]="faSmile"></fa-icon>
+                </button>
+                <button (click)="sendMessage()">
+                    <fa-icon [icon]="faPaperPlane"></fa-icon>
+                </button>
+                <emoji-mart (emojiClick)="addEmoji($event)"
+                            [style]="{ position: 'absolute', bottom: '20px', right: '20px' }"
+                            [set]="'facebook'"
+                            *ngIf="hideEmoji"
+                            id="emoji"
+                ></emoji-mart>
             </div>
         </div>
     </div>
 </div>
 
 
-<emoji-mart (emojiClick)="addEmoji($event)"
-            [style]="{ position: 'absolute', bottom: '20px', right: '20px' }"
-            [set]="'facebook'"
-            *ngIf="hideEmoji"
-            id="emoji"
-></emoji-mart>

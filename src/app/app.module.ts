@@ -5,9 +5,9 @@ import { AppComponent } from './app.component';
 import { GroupChatModule } from './group-chat/group-chat.module';
 import { NgModule } from "@angular/core";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-import { HttpMainInterceptor } from "./services/http.interceptor";
-import { JwtModule } from "@auth0/angular-jwt";
-import { FontAwesomeModule } from "ngx-icons";
+import { HttpMainInterceptor } from './services/http.interceptor';
+import { JwtModule } from '@auth0/angular-jwt';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function tokenGetter() {
     return localStorage.getItem("token");
@@ -26,7 +26,7 @@ export function tokenGetter() {
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,
-                whitelistedDomains: ["localhost:3000"],
+                whitelistedDomains: ['localhost:8888'],
             }
         })
     ],

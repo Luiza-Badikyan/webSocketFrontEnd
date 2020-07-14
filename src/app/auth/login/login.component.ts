@@ -4,6 +4,7 @@ import { Subject } from "rxjs/internal/Subject";
 import { ApiService } from "../../services/api.service";
 import { takeUntil } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   });
 
   constructor(private apiService: ApiService,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.unsubscribe))
         .subscribe(data => {
           localStorage.setItem('token', data.token);
+          this.authService.decodeToken();
           this.router.navigate(['/group-chat']);
         });
         this.loginForm.reset();

@@ -3,32 +3,38 @@
         <div>
             <h3>Registrati</h3>
         </div>
-        <form [formGroup]="registrationForm">
+        <form [formGroup]="registrationForm" (submit)="register()">
             <div class="form-group">
                 <label for="username">First name</label>
-                <input class="form-control" type="text" name="username" id="username" placeholder="first name" formControlName="first_name" required />
+                <input class="form-control" type="text" name="username" id="username" placeholder="first name"
+                       formControlName="first_name" required/>
             </div>
             <div class="form-group">
                 <label for="email">Last name</label>
-                <input class="form-control" type="text" name="email" placeholder="last name" formControlName="last_name" required />
+                <input class="form-control" type="text" name="email" placeholder="last name" formControlName="last_name"
+                       required/>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input class="form-control" type="email" name="email" id="email" placeholder="email" formControlName="email" required />
+                <input class="form-control" type="email" name="email" id="email" placeholder="email"
+                       formControlName="email" required/>
             </div>
             <div class="input-group">
                 <label for="email">Date of birth</label>
-                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" (dateSelect)="changeDateFormat($event)">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" autocomplete="off" formControlName="date_of_birth"
+                       [minDate]="{year: 1950, month: 1, day: 1}" [maxDate]="maxYear" (click)="dateOfBirth.click()" (dateSelect)="changeDateFormat($event)">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                    <button class="btn btn-outline-secondary calendar" #dateOfBirth (click)="d.toggle()"
+                            type="button"></button>
                 </div>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input class="form-control" type="password" name="password" id="password" placeholder="********" formControlName="password" required />
+                <input class="form-control" type="password" name="password" id="password" placeholder="********"
+                       formControlName="password" required/>
             </div>
             <div class="m-t-lg">
-               <button type="button" (click)="register()" [disabled]="registrationForm.invalid" class="btn btn-dark">Register</button>
+                <button type="submit" [disabled]="registrationForm.invalid" class="btn btn-dark">Register</button>
             </div>
         </form>
     </div>

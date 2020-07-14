@@ -7,6 +7,10 @@ import { ChatService } from "../services/chat.service";
 import { NgModule } from "@angular/core";
 import { QuillModule } from 'ngx-quill'
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { SharedModule } from "../shared/shared.module";
+import { ImageModalComponent } from "../shared/modals/image-modal/image-modal.component";
+import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
@@ -17,9 +21,13 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
         FormsModule,
         ReactiveFormsModule,
         PickerModule,
-        QuillModule.forRoot()
+        FontAwesomeModule,
+        QuillModule.forRoot(),
+        SharedModule,
+        NgbModalModule
     ],
-    providers: [ChatService]
+    providers: [ChatService],
+    entryComponents: [ImageModalComponent],
 })
 export class GroupChatModule {
 }

@@ -21,6 +21,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         password: new FormControl('', [Validators.required]),
     });
     model: NgbDateStruct;
+    public maxYear = {year:new Date().getFullYear() - 18, month: 1, day: 1};
 
     constructor(private apiService: ApiService,
                 private router: Router) {
